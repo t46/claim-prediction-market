@@ -1,0 +1,787 @@
+{
+  "hypothesis": "A prediction market mechanism over research claims correctly identifies novel discoveries vs trivial claims.",
+  "total_claims_loaded": 35,
+  "claims_with_ground_truth": 17,
+  "verified_count": 12,
+  "unverified_count": 5,
+  "predictor_brier_scores": {
+    "Skeptic": {
+      "mean_brier": 0.2886,
+      "n_predictions": 17
+    },
+    "Optimist": {
+      "mean_brier": 0.1722,
+      "n_predictions": 17
+    },
+    "Methodologist": {
+      "mean_brier": 0.1631,
+      "n_predictions": 17
+    },
+    "DomainExpert": {
+      "mean_brier": 0.1656,
+      "n_predictions": 17
+    },
+    "BaseRate": {
+      "mean_brier": 0.1448,
+      "n_predictions": 17
+    }
+  },
+  "market_ensemble_brier": 0.1769,
+  "calibration": {
+    "0.2-0.4": {
+      "n": 2,
+      "mean_predicted": 0.333,
+      "actual_verified_rate": 0.5
+    },
+    "0.4-0.6": {
+      "n": 6,
+      "mean_predicted": 0.497,
+      "actual_verified_rate": 0.5
+    },
+    "0.6-0.8": {
+      "n": 8,
+      "mean_predicted": 0.655,
+      "actual_verified_rate": 0.875
+    },
+    "0.8-1.0": {
+      "n": 2,
+      "mean_predicted": 0.878,
+      "actual_verified_rate": 1.0
+    }
+  },
+  "surprising_claims": {
+    "count": 1,
+    "description": "Claims where market predicted <0.5 but ground truth is verified. These are candidates for genuinely novel findings.",
+    "claims": [
+      {
+        "claim_id": "2026-04-16 v2/claim-007",
+        "claim_text": "2026-04-15/claim-009 (phase-asymmetry) is largely fragile: the counter-intuitive domain_breadth reversal (scalability < ...",
+        "mean_prediction": 0.28,
+        "consensus": 0.739,
+        "status": "active",
+        "confidence": 0.78
+      }
+    ]
+  },
+  "trivial_claims": {
+    "count": 11,
+    "description": "Claims where market predicted >=0.5 and verified. High consensus + verified = likely not novel."
+  },
+  "hypothesis_assessment": "SUPPORTED (preliminary): Market ensemble Brier=0.1769 (better than chance=0.25). Found 1 surprising claims vs 11 trivial verified claims, suggesting the market discriminates novelty from triviality.",
+  "per_claim": [
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-001",
+      "claim_text": "Static automated evaluation (LLM-as-reviewer) is structurally vulnerable to Goodhart's Law when the true quality space is higher-dimensional than the evaluation space (N > K). The vulnerability is formally provable and worsens for agentic systems (Proposition 2: coverage ratio -> 0 as tools grow). However, in narrow domains where N is small, static evaluation can be effective.",
+      "status": "active",
+      "confidence": 0.8,
+      "ground_truth": true,
+      "mean_prediction": 0.616,
+      "consensus": 0.7096,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.42,
+          "brier": 0.3364,
+          "reasoning": "The claim makes a three-part assertion: (1) formal provability of Goodhart's Law vulnerability under N > K, (2) worsening for agentic systems, and (3) effectiveness in narrow domains. While the theoretical framework (2603.28063) provides formal structure and ev-076 offers quantitative cross-system evidence, the formal proof relies on five axioms that may not hold universally in practice, the empirical evidence remains limited in scope (N=13, subgroup n=6), counter-evidence from Camyla demonstrates practical effectiveness, and the claim's own author admits axioms are 'weakest' assumptions—requiring extraordinary evidence for a structural impossibility claim that the current evidence does not yet provide."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim has strong theoretical support (formal proofs from principal-agent theory with F2 fidelity evidence) and multiple empirical demonstrations of reward hacking, but faces meaningful countervailing evidence from domain-specific successes (Camyla) and citation correlation findings; the core vulnerability thesis is likely sound while the boundary conditions (narrow domains effectiveness) are well-acknowledged, giving this a moderately-high but not overwhelming verification probability."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.55, \"reasoning\": \"The claim makes three distinct sub-claims: (1) formal provability of Goodhart vulnerability (F2 evidence supports this theoretically but relies on axioms that may n"
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim rests on three testable components: (1) formal provability of Goodhart vulnerability under N>K, which is supported by peer-reviewed theory (2603.28063) with quantitative cross-system evidence (ev-076, r=-0.971 for agentic systems); (2) worsening vulnerability for agentic systems, directly confirmed by the autonomy-moderated effect; but (3) the nuance that static evaluation works in narrow domains is only weakly supported (single domain: Camyla medical imaging), and the broader claim conflates dimensionality with practical failure modes—the counter-evidence from Pre-review (ev-031) suggests LLM evaluators may capture real quality signals via indirect mechanisms. The formal theoretical foundation is solid (F2 evidence), but verification hinges on whether independent evaluators test the dimensionality threshold empirically across diverse domains, and whether they distinguish between structural Goodhart's Law vulnerability and practical performance, which the current evidence bundle does not cleanly separate."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim has solid theoretical grounding (formal proof from 2603.28063, supported by multiple empirical examples of reward hacking), but verification faces challenges: the core theoretical result relies on axioms that may not hold in practice, the empirical evidence is limited in scope (N=13 for autonomy effect, single narrow domain for success case), and the prediction hinges on precise mathematical relationships (coverage ratio → 0) that require careful independent validation of both axioms and proofs; the tempering caveat about narrow domains is well-supported by Camyla, which increases overall credibility but also narrows the claim's scope."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-002",
+      "claim_text": "Adaptive/co-evolutionary evaluation (where the evaluator evolves alongside the generator) is a more promising quality assurance paradigm than static evaluation for autonomous research.",
+      "status": "parked",
+      "confidence": 0.45,
+      "ground_truth": false,
+      "mean_prediction": 0.408,
+      "consensus": 0.7872,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.28,
+          "brier": 0.0784,
+          "reasoning": "While DASES demonstrates co-evolutionary evaluation working on a narrow domain (loss function discovery) with transferable results, the claim remains unverified at scale: evidence is limited to F1-F2 fidelity, single-locus demonstrations, scalability is unproven, the Falsifier's own gaming vulnerabilities are unanalyzed, and the author's own 0.45 confidence reflects substantial remaining uncertainty about whether adaptive evaluation genuinely outperforms static evaluation for autonomous research broadly."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.52,
+          "brier": 0.2704,
+          "reasoning": "The claim has three supporting evidence pieces with concrete examples (DASES, CycleResearcher) demonstrating adaptive evaluation benefits, but evidence is limited to F1-F2 fidelity with narrow scopes (loss functions), one direct counterexample for novelty assessment, the author's own low confidence (0.45), and the claim has been parked as subsumed by a more precise framework—suggesting modest promise but substantial uncertainty about generalization to autonomous research broadly."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.32,
+          "brier": 0.1024,
+          "reasoning": "The claim lacks high-fidelity empirical support (maximum F2, only 1 piece), relies on narrow proof-of-concept evidence (DASES limited to loss function discovery), faces a fundamental challenge from NovBench showing adaptive evaluation may not solve hard QA dimensions, and the author's own low confidence (0.45) combined with the claim being parked as subsumed by a more rigorous framework suggests limited prospects for independent verification of this broad comparative claim."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.38, \"reasoning\": \"The claim is supported by promising but limited evidence (DASES demonstrates co-evolutionary evaluation advantages in a narrow domain with real transfer results), b"
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.42,
+          "brier": 0.1764,
+          "reasoning": "While 3 evidence pieces support adaptive evaluation's promise (particularly DASES's concrete transfer success), the author's low confidence (0.45), narrow F2 evidence limited to loss function discovery, fundamental LLM limitations in novelty assessment (ev-033), and lack of scalability demonstration to full autonomous research systems argue against verification; base-rate adjustment from 60% is substantial given the evidence balance favors theoretical promise over empirical proof-of-concept at scale."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-006",
+      "claim_text": "No single evaluation metric adequately captures autonomous research quality. A multi-dimensional framework is needed, covering at minimum: implementation fidelity, novelty/exploration breadth, knowledge accumulation, and output quality.",
+      "status": "parked",
+      "confidence": 0.55,
+      "ground_truth": false,
+      "mean_prediction": 0.7,
+      "consensus": 0.9106,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.72,
+          "brier": 0.5184,
+          "reasoning": "The claim that single metrics are inadequate and multi-dimensional frameworks are needed has strong theoretical support (reward hacking equilibrium, implementation gap evidence) and multiple independent empirical demonstrations across different domains, though the counter-evidence reasonably shows narrow domains can succeed with single metrics, and the author's own low confidence (0.55) and decision to subsume this into a more formal framework suggests the current claim statement may be too broadly framed rather than rigorously falsifiable."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.5184,
+          "reasoning": "The claim is well-supported by 4 high-fidelity evidence pieces demonstrating that single metrics fail across multiple contexts (discovery, failure detection, reward hacking, implementation gaps), though the single counter-evidence validly shows domain-specific narrow cases where single metrics suffice, and the author's own low confidence (0.55) and recent subsumption into a more formal framework (kappa) suggest the specific formulation may need refinement even if the core principle is sound."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.62,
+          "brier": 0.3844,
+          "reasoning": "The claim is well-supported by four F1-level literature sources providing converging evidence (theoretical result on metric limitations, empirical demonstrations of multi-dimensional evaluation needs, and domain-specific analysis), but verification is weakened by low maximum fidelity, the single credible counterexample showing domain-specific metrics can suffice, and the author's own modest 0.55 confidence indicating acknowledged uncertainty about whether the framework components are truly minimal and necessary."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.5184,
+          "reasoning": "The claim that autonomous research quality requires multi-dimensional evaluation is strongly supported by four independent high-fidelity sources (DISCOVERYWORLD, Hidden Pitfalls, Reward Hacking equilibrium theorem, and implementation gap research) that converge on the inadequacy of single metrics, though the claim's specificity about which four dimensions are 'minimum' necessary is not fully validated, and the single counterexample (Camyla/Karpathy) demonstrates the claim has important domain-dependent qualifications."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.5184,
+          "reasoning": "The claim that multi-dimensional evaluation is needed for autonomous research is well-supported by 4 high-fidelity evidence pieces (DISCOVERYWORLD, Hidden Pitfalls, Reward Hacking equilibrium, implementation gap) establishing that single metrics fail to capture important quality aspects, moderated slightly by 1 counterexample (Camyla) showing narrow domains can work with single metrics, and further tempered by the author's cautious 0.55 confidence and the claim being subsumed by a stronger framework (claim-009), but the underlying principle remains sound and likely to be independently verified given strong theoretical and empirical grounding."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-008",
+      "claim_text": "There is a spectrum of autonomous research systems from 'optimization loops' (autoresearch) to 'full scientific agency' (AI Scientist), and the quality assurance challenges differ fundamentally along this spectrum.",
+      "status": "parked",
+      "confidence": 0.5,
+      "ground_truth": false,
+      "mean_prediction": 0.462,
+      "consensus": 0.7939,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.35, \"reasoning\": \"While evidence supports a spectrum exists, the counter-evidence from Camyla suggests domain narrowness, not autonomy level, is the fundamental driver of QA challeng"
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.62,
+          "brier": 0.3844,
+          "reasoning": "The claim has solid supporting evidence for a spectrum existing (Karpathy's simple optimization vs AI Scientist's full pipeline vs autonomy level frameworks), but the core assertion that QA challenges differ 'fundamentally' along autonomy alone is undermined by Camyla's counter-evidence showing that full scientific agency can succeed with simple evaluation in narrow domains, suggesting domain constraint rather than autonomy level is the primary driver of QA difficulty."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.35,
+          "brier": 0.1225,
+          "reasoning": "The claim rests on F1-level evidence (single examples and theoretical classifications) with no empirical demonstration of the full spectrum, and counter-evidence from Camyla suggests domain constraints matter more than autonomy level alone, making the 'fundamental difference' assertion insufficiently supported for verification."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.42,
+          "brier": 0.1764,
+          "reasoning": "While evidence supports a spectrum of autonomous research systems (Karpathy to AI Scientist) and theoretical autonomy levels (L1-L5), the claim that quality assurance challenges differ 'fundamentally' along this spectrum is undermined by Camyla's counter-evidence showing that full scientific agency can succeed with simple evaluation in narrow domains, suggesting domain constraints matter more than autonomy level itself, and the author's own low confidence (0.5) and decision to subsume this claim into a revised taxonomy indicates recognition of the claim's limitations."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.42,
+          "brier": 0.1764,
+          "reasoning": "The claim posits that QA challenges differ fundamentally along autonomy spectrum, supported by 3 FOR and 1 AGAINST evidence; however, the AGAINST evidence (Camyla) provides a substantive counter-argument that domain narrowness, not autonomy level, is the primary QA driver, and the claim's author acknowledged insufficient scope and parked it in favor of a revised taxonomy, suggesting material uncertainty about the original framing despite moderate evidence count."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-009",
+      "claim_text": "The effectiveness of quality assurance in autonomous research is moderated by evaluation coverage ratio kappa = (N-K)/N, where N is the number of quality dimensions relevant to the task and K is the number covered by evaluation. Three strategies exist for reducing Goodhart distortion: (1) domain narrowing (reduce N), (2) evaluation enrichment (increase K), (3) behavioral alignment (reduce lambda, the alignment gap parameter). A Dimension Enumeration Protocol (DEP) provides a reproducible method for estimating kappa per-system. Hold-out prediction tests on 2 systems not in the original taxonomy (Google AI Scientific Software, AutoDiscovery) show outcomes consistent with kappa-based predictions, including correctly identifying which specific quality dimensions are underserved.",
+      "status": "active",
+      "confidence": 0.75,
+      "ground_truth": true,
+      "mean_prediction": 0.564,
+      "consensus": 0.8365,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.32, \"reasoning\": \"While the claim presents substantial correlational evidence (r=-0.704, p=0.007) and internally consistent validation, critical weaknesses undermine verification con"
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.68,
+          "brier": 0.1024,
+          "reasoning": "The claim is supported by substantial evidence (16 vs 6 against) with strong quantitative validation (kappa-QA correlation r=-0.704, p=0.007, robust to perturbation) and genuine blind predictions (2/2 match), but faces meaningful limitations: small sample sizes (N=13 systems, N=2 true blind predictions), single-analyst encoding of outcomes creating potential bias, post-hoc validation for initial hold-out tests, DEP inter-rater reliability unproven (r=0.481), vulnerability to adversarial perturbation of borderline systems, and maximum fidelity of F2 rather than F3 experimental validation. The autonomy-moderated effect (r=-0.971 for L3-L4) is particularly strong but based on n=6, and the framework's three mitigation strategies are theoretically grounded but incompletely validated operationally."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.52,
+          "brier": 0.2304,
+          "reasoning": "The claim presents a multi-part theoretical framework with moderate empirical support: (1) the kappa formula is grounded in F2-level theoretical work (lit-013), (2) quantitative analysis across 13 systems shows strong correlation (r=-0.704, p=0.007) with robustness to perturbations, but (3) critical limitations severely constrain verification: post-hoc predictions on 2 systems (ev-056/057), only 2 genuine blind predictions (ev-087), adversarial perturbation breaks significance (ev-086), DEP inter-rater reliability weak (r=0.481, ev-074), small sample sizes with non-independent systems, and analyst-coding bias throughout, making the evidence primarily F1/F2 rather than F3."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.62,
+          "brier": 0.1444,
+          "reasoning": "The claim integrates a mathematically elegant framework (kappa formulation) with quantitative support (r=-0.704, p=0.007 on 13 systems, strengthened by autonomy moderation at r=-0.971 for high-autonomy systems), but is substantially limited by: (1) small sample sizes (N=13, N=2 true blind predictions), (2) single-analyst encoding of both predictor and outcome introducing bias, (3) vulnerability to coordinated worst-case perturbation that breaks significance, (4) post-hoc rather than prospective validation for most hold-out tests, (5) DEP inter-rater reliability unvalidated (analyst vs DEP kappa only r=0.481), and (6) modest effect on low-autonomy systems (r=-0.405, non-significant). The framework shows genuine predictive signal, especially for high-autonomy systems, but independent external validation and larger prospective studies would be needed for strong verification."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.58, \"reasoning\": \"The claim presents a mathematically elegant framework (kappa = (N-K)/N) with moderate empirical support: quantitative analysis shows strong correlation (r = -0.704,"
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-14 autonomous-research-methodology/claim-012",
+      "claim_text": "QA effectiveness in autonomous research is determined by a three-factor model: evaluation coverage (kappa), evaluator-generator circularity (C), and autonomy level. Kappa = (N-K)/N measures coverage gap; C measures shared representation between generator and evaluator (C=0 independent, C=1 identical); autonomy amplifies both effects. Hard dimensions (novelty, significance) are precisely those with both high kappa_dimension AND high C_dimension. Quantitative analysis shows: (1) kappa-QA correlation r=-0.704 (p=0.007) across 13 systems, (2) autonomy moderates this to r=-0.971 for L3-L4 systems, (3) circularity C cannot be reduced below ~0.5 within LLM-only approaches. The effective exploration ceiling is bounded by Exploration_potential * (1-C), implying fundamental limits on same-LLM novelty evaluation.",
+      "status": "active",
+      "confidence": 0.45,
+      "ground_truth": false,
+      "mean_prediction": 0.386,
+      "consensus": 0.8365,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.28, \"reasoning\": \"While the claim presents a theoretically coherent three-factor model with some empirical support (n=13, r=-0.704, p=0.007), it suffers from critical weaknesses: the"
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.38,
+          "brier": 0.1444,
+          "reasoning": "While the three-factor model shows promising quantitative support (r=-0.704, p=0.007; r=-0.971 for L3-L4) and internal consistency, it faces significant verification obstacles: the Gaussian circularity model is acknowledged as oversimplified, the model has 3+ parameters against only 13 data points creating high overfitting risk, the circularity coefficient C itself is not directly measurable in practice, and blind predictions validated only the kappa*autonomy interaction rather than the full three-factor model with explicit C estimates—leaving the claim's central novelty (the circularity factor and its specific bounds) unverified by independent evidence."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.28,
+          "brier": 0.0784,
+          "reasoning": "The claim presents an integrative three-factor model with F2 evidence for kappa-autonomy interactions (r=-0.971, N=13) but relies heavily on F1 evidence for the circularity coefficient C (acknowledged as a simplification with unmeasurable parameters and non-Gaussian assumptions), faces genuine overfitting concerns (3+ factors, 13 data points), lacks out-of-sample validation of the full model, and the author's own confidence of 0.45 combined with acknowledged limitations in tool-based circularity reduction and post-hoc model fitting suggest verification is unlikely without substantial additional high-fidelity evidence."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.35,
+          "brier": 0.1225,
+          "reasoning": "The three-factor model is theoretically coherent and shows promising correlations (r=-0.704, r=-0.971 for autonomy subgroups), but faces critical limitations: small sample size (N=13) with overfitting risk relative to model complexity, circularity coefficient C is a simplified Gaussian toy model not directly measurable in practice, the blind predictions (ev-091) validated only kappa*autonomy interaction not the three-factor model itself, and the claim's own author rated confidence at only 0.45 while noting methodological concerns about self-coded variables and post-hoc fitting—all suggesting this ambitious synthesis, while plausible, lacks sufficient independent empirical validation for verification."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.42,
+          "brier": 0.1764,
+          "reasoning": "The claim presents a sophisticated three-factor model with strong statistical evidence (kappa r=-0.704, p=0.007; autonomy-moderated r=-0.971) and theoretical formalization, but faces significant limitations: small sample size (N=13), acknowledged circularity coefficient as oversimplified (Gaussian assumption on high-dimensional non-Gaussian data), high parameter-to-data ratio risking overfitting, and unvalidated C coefficient in blind predictions. Author's own 0.45 confidence, balance of 4 supporting vs 2 critical pieces, and F2 maximum fidelity indicate plausible but uncertain core contribution—likely some aspects will verify while the unified three-factor integration and C bounds claims remain unproven."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-15 automated-research-methodology/claim-002",
+      "claim_text": "LLMベースの自動レビューはGoodhart問題に対して構造的に脆弱であり、品質保証の上限が存在する",
+      "status": "active",
+      "confidence": 0.7,
+      "ground_truth": true,
+      "mean_prediction": 0.6,
+      "consensus": 0.828,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.42, \"reasoning\": \"While the claim presents coherent theoretical arguments (F2 synthesis showing structural vulnerability) and multiple peer-reviewed sources, verification faces signi"
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.68,
+          "brier": 0.1024,
+          "reasoning": "The claim has strong theoretical support (Wang & Huang's formal proof of structural vulnerability, El-Mhamdi & Hoang's Goodhart formalization, BadScientist's empirical demonstration) and a sophisticated F2-level synthesis showing multi-layered mechanisms, but is partially countered by evidence that traceability-based and temporal-division evaluation approaches can mitigate Goodhart effects, leaving the question of whether structural weakness is truly insurmountable—a nuance that limits the probability despite predominantly supporting evidence."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.52,
+          "brier": 0.2304,
+          "reasoning": "The claim rests primarily on F1-level theoretical evidence (Wang & Huang, El-Mhamdi & Hoang, BadScientist) with one F2 synthetic analysis; while these papers provide credible support for structural vulnerabilities to Goodhart's law, the maximum fidelity is still below empirical validation (F3), the against-evidence highlights practical countermeasures (traceability, hindsight evaluation), and the claim's strong categorical assertion ('structurally vulnerable with quality ceiling') exceeds what the current evidence rigor can verify independently—making verification uncertain despite supportive theory."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.62,
+          "brier": 0.1444,
+          "reasoning": "The claim has solid theoretical foundations (Wang & Huang, El-Mhamdi & Hoang on Goodhart's Law, BadScientist evidence) and respectable confidence (0.70), but verification faces significant hurdles: the F2 synthesis evidence lacks independent empirical validation, the 'structural weakness' and 'upper bound' assertions require rigorous quantitative demonstration beyond current literature, and the countervailing evidence (Ifargan, Jiang HindSight) shows viable mitigation strategies that complicate the claim's universality—the claim's truth value depends heavily on implementation scope and what constitutes acceptable 'quality assurance' baselines."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.68,
+          "brier": 0.1024,
+          "reasoning": "The claim rests on solid theoretical foundations (Wang & Huang, El-Mhamdi & Hoang) plus empirical demonstration of LLM review vulnerability (BadScientist), but faces meaningful counterarguments from mitigation approaches (traceability, hindsight evaluation) and limited F2 evidence—the author's 0.70 confidence appropriately reflects a moderately strong but non-decisive case within the 60% base rate for emerging AI research claims."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-15 automated-research-methodology/claim-005",
+      "claim_text": "AI研究自動化は密なスカラーフィードバックがある領域では有効だが、フィードバックが疎な領域への適用は本質的に困難である",
+      "status": "active",
+      "confidence": 0.45,
+      "ground_truth": false,
+      "mean_prediction": 0.408,
+      "consensus": 0.8069,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.32,
+          "brier": 0.1024,
+          "reasoning": "The claim's binary framing ('essential difficulty') is undermined by counterexamples (Kosmos, ResearchEVO) that demonstrate sparse-feedback domain success, the author's own low confidence (0.45), evidence quality limitations (all F1 fidelity, indirect citations), and the acknowledged shift toward a spectrum hypothesis that contradicts the original dichotomy rather than supporting it."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.52,
+          "brier": 0.2704,
+          "reasoning": "The claim presents a nuanced spectrum hypothesis rather than absolute dichotomy—dense feedback domains show clear success (Karpathy, Liu et al., Claudini) while sparse feedback domains show emerging counterexamples (Kosmos, ResearchEVO) that partially weaken but don't refute the 'essential difficulty' assertion, supported by the author's moderate 0.45 confidence and the evidence favoring a refined feedback density framework over binary outcomes."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.32,
+          "brier": 0.1024,
+          "reasoning": "The claim's core assertion about 'essential difficulty' in sparse-feedback domains is significantly weakened by two counterexamples (Kosmos, ResearchEVO) that demonstrate success without dense scalar feedback, yet all evidence is low-fidelity (F1) anecdotal observations rather than rigorous comparative studies, and the author's own low confidence (0.45) combined with evidence of data integrity issues (deleted r=-0.553) suggests the claim requires reformulation rather than verification as stated."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.38,
+          "brier": 0.1444,
+          "reasoning": "The claim's assertion of 'essential difficulty' in sparse feedback domains is substantially weakened by Kosmos and ResearchEVO counterexamples that achieved discoveries without single scalar feedback, though these systems employed alternative feedback structures (world models, compilation signals) rather than complete feedback absence, leaving the precise boundary between dense/sparse feedback ambiguous and the claim's core thesis partially but not definitively refuted."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.42, \"reasoning\": \"The claim's nuanced position—that AI research automation works well with dense scalar feedback but faces 'essential difficulty' with sparse feedback—is weakened by "
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-001",
+      "claim_text": "2026-04-15 ARA run の r(feedback_density, domain_breadth) = -0.553 は原コードと原データから厳密に再現可能である（r = -0.552771, |diff| < 1e-3）",
+      "status": "verified",
+      "confidence": 0.98,
+      "ground_truth": true,
+      "mean_prediction": 0.87,
+      "consensus": 0.8268,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "While the claim presents specific numerical evidence (r = -0.552771 matching the original r = -0.553 within stated tolerance) with high author confidence (0.98) and documented code/data artifacts, skepticism is warranted because: (1) this is a self-audit claim with single supporting evidence piece lacking independent verification, (2) reproducibility of computation differs from validity of underlying methodology, (3) the author's stated 0.98 confidence appears overconfident for a computational claim without peer review, and (4) potential issues with data serialization (SYSTEMS dict → JSON conversion) or floating-point precision edge cases are not addressed."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.92,
+          "brier": 0.0064,
+          "reasoning": "The claim has strong supporting evidence (F3 fidelity) with exact reproducibility demonstrated (r = -0.552771 vs -0.553, within |diff| < 1e-3 threshold), proper code and data artifacts documented, and high author confidence (0.98), but minor uncertainty remains around data integrity lineage and whether numerical precision will be independently confirmed identically."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.92,
+          "brier": 0.0064,
+          "reasoning": "Single F3 fidelity evidence with exact numerical match (r = -0.552771 vs -0.553, diff < 1e-3) and reproducible code/data artifacts strongly supports verification, but claim is self-reported by original researchers with high confidence (0.98), which introduces potential bias and reduces independent verification probability slightly below the evidence quality alone would suggest."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.87,
+          "brier": 0.0169,
+          "reasoning": "The claim has direct computational evidence (F3 fidelity) showing exact numerical reproducibility (r=-0.552771 matches claimed r=-0.553 within |diff|<1e-3), but verification depends on the integrity of the source data JSON and code, which cannot be independently confirmed from the provided information alone; the high author confidence (0.98) and acknowledgment of limitations suggest honest assessment rather than overconfidence."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.92,
+          "brier": 0.0064,
+          "reasoning": "The claim is highly specific (exact correlation coefficient with tolerance bounds) and supported by one high-fidelity piece of evidence (F3: direct code execution with matched artifacts), but the single evidence source and lack of independent verification slightly temper confidence below the author's stated 0.98, consistent with base-rate adjustment for reproducibility claims where computational verification exists but independent replication is absent."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-002",
+      "claim_text": "2026-04-15 run の claim-007 (r=-0.553, n=11) は n=11 において標準的な統計的検定 (parametric t-test, permutation, bootstrap CI) の閾値を満たさない",
+      "status": "verified",
+      "confidence": 0.92,
+      "ground_truth": true,
+      "mean_prediction": 0.886,
+      "consensus": 0.9585,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.87,
+          "brier": 0.0169,
+          "reasoning": "The claim is a straightforward statistical audit with transparent methodology: observed |r|=0.553 objectively falls below the critical value of 0.602, bootstrap CI crosses zero, permutation p=0.151 exceeds α=0.05, and noise sensitivity (27.6% sign-flip) is empirically demonstrated with reproducible code—meeting standard statistical thresholds for non-significance is inherently verifiable, though the underlying original claim's merit remains separate."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.87,
+          "brier": 0.0169,
+          "reasoning": "The claim asserting non-significance of r=-0.553 (n=11) is strongly supported by converging evidence: critical value 0.602 > |0.553|, permutation p=0.151 > 0.05, bootstrap CI crosses zero, and robustness checks demonstrate vulnerability to realistic noise, though the acknowledged conventional nature of α=0.05 threshold and modest F2 evidence for one sub-point create minor uncertainty."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.89,
+          "brier": 0.0121,
+          "reasoning": "The claim asserts that r=-0.553 (n=11) fails standard statistical thresholds; this is rigorously supported by F3 evidence showing critical |r|=0.602 (unmet), permutation p=0.151 (>0.05), bootstrap CI spanning zero [-0.917, +0.289], and robust robustness checks (noise injection, LOO sensitivity), with only minor limitations around conventional α thresholds and noise model assumptions."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.88,
+          "brier": 0.0144,
+          "reasoning": "The claim is a meta-research self-audit asserting that r=-0.553 (n=11) fails standard statistical thresholds; multiple high-fidelity (F3) robustness checks consistently support this (t-test p=0.078, permutation p=0.151, bootstrap CI crosses zero, critical value |r|=0.602), with substantive evidence of sensitivity to modest measurement noise, making verification highly likely given the transparent methodology and comprehensive statistical documentation."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.92,
+          "brier": 0.0064,
+          "reasoning": "The claim states a straightforward statistical fact—that r=-0.553 (n=11) fails to meet standard significance thresholds—which is directly supported by three high-fidelity evidence pieces (F3 code execution, noise robustness testing, and sensitivity analysis) all confirming the same conclusion: critical |r|=0.602 > observed |r|=0.553, permutation p=0.151, and bootstrap CI crosses zero, making verification of this negative/null result highly likely given the transparent, reproducible computational evidence and the author's high stated confidence of 0.92."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-004",
+      "claim_text": "ARA が生成する n < 30 の順序尺度 (3点) 相関を F2 エビデンスと見なす前に、(a) bootstrap 95% CI, (b) permutation p, (c) Spearman/Kendall 代替, (d) leave-one-out 感度, (e) 独立採点による κ の確認、を必須プロトコルとすべきである",
+      "status": "active",
+      "confidence": 0.7,
+      "ground_truth": true,
+      "mean_prediction": 0.7,
+      "consensus": 0.9106,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.62,
+          "brier": 0.1444,
+          "reasoning": "The claim proposes a methodological standard based on a single audit demonstrating real problems (low power, inappropriate Pearson for ordinal data, unchecked coder drift), but lacks independent verification across multiple ARA systems and contexts, faces a pragmatic speed-vs-rigor tradeoff that may resist adoption, and depends on downstream claims (claim-002, claim-003) whose verification status is unknown."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim advocates for a rigorous five-part statistical protocol (bootstrap CI, permutation test, non-parametric alternatives, sensitivity analysis, independent rater agreement) for ordinal correlations with small samples (n<30) before assigning F2 evidence status. This is well-grounded: the audit (F3 evidence) demonstrates that each of the five tests provides distinct vulnerability detection and together they would have prevented the original confidence inflation from 0.62; existing statistical literature strongly supports small-sample Pearson corrections (F2 evidence); and the methodological basis is sound. The single contrary argument (speed vs. rigor trade-off, F1) is valid but pragmatic rather than empirical, and does not undermine the core claim's validity. The limitation that generalizability across other ARA quantitative claims remains untested is notable but expected for a newly-proposed protocol standard, and the author's stated confidence (0.70) and the 2:1 supporting evidence ratio suggest this will likely be adopted as best-practice guidance."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a rigorous five-point protocol (bootstrap CI, permutation test, rank alternatives, LOO sensitivity, independent κ) as mandatory before treating small-sample ordinal correlations as F2 evidence. The F3 audit evidence (ev-001) directly demonstrates that each component reveals distinct vulnerabilities in the original analysis, supporting the necessity claim. The F2 evidence (ev-002) anchors the proposal in established statistical principles. However, verification depends on: (1) whether independent evaluators will accept that single-case audit generalization as sufficient justification for a new mandatory protocol, (2) the operational feasibility judgment (the F1 counter-argument about cost-benefit tradeoffs remains unresolved), and (3) whether this will be adopted as formal ARA policy rather than remaining methodological guidance. The high-fidelity audit evidence is strong, but the claim's verification hinges on institutional/policy adoption, not just methodological validity."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a rigorous statistical protocol for validating small-sample ordinal correlations (n<30) in ARA-generated evidence, grounded in documented audit findings showing that current Pearson-based approaches violate methodological principles (low power, inappropriate for ordinal data, unvalidated coder drift). The five-part protocol aligns with established statistical best practices (bootstrap CI, permutation tests, rank correlations, sensitivity analysis, inter-rater reliability), though its adoption as mandatory ARA standard faces implementation cost-benefit concerns and has been demonstrated only in a single audit case."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a methodologically sound five-point robustness protocol for small-sample ordinal correlations (n<30) in ARA systems; it is grounded in established statistical principles (F2 evidence), supported by a concrete audit demonstrating each component's added value (F3 evidence), with author confidence of 0.70, though limited by single-case generalization and lacks explicit evidence on adoption feasibility or broader ARA applicability."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-005",
+      "claim_text": "2026-04-15 run の claim-007 (r=-0.55 feedback-density × domain-breadth trade-off, F2, confidence 0.62) の confidence は、本 audit の結果に基づき 0.62 → 0.45 へ下方修正されるべきである",
+      "status": "active",
+      "confidence": 0.8,
+      "ground_truth": true,
+      "mean_prediction": 0.646,
+      "consensus": 0.6691,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.35,
+          "brier": 0.4225,
+          "reasoning": "The claim is a meta-research assertion about whether a confidence downgrade (0.62→0.45) should occur based on audit findings; while the audit identifies legitimate concerns (directional support but fragile magnitude, violation of evidence-collection spirit), the threshold for 'verification' of such a procedural/meta-level judgment is ambiguous, and the reasoning contains contradictions (ev-003 labeled 'against' actually supports the claim's spirit), making independent verification of the appropriateness of this specific numerical downgrade unlikely to achieve consensus."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a confidence downgrade (0.62→0.45) based on rigorous meta-research audit findings; it is supported by F3 statistical evidence showing directional consistency but magnitude fragility, acknowledges the spirit-level integrity violation, and the proposed adjustment appears methodologically sound and appropriately conservative rather than dismissive, though verification depends on independent auditor agreement with the reasoning."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a downgrade of confidence from 0.62→0.45 based on audit findings; it is supported by rigorous F2-F3 evidence showing directional consistency but magnitude fragility and integrity-layer spirit violations, though the against-evidence (ev-003) actually argues against killing the claim entirely, creating some internal tension about whether 0.45 is the appropriate adjusted value versus other possibilities."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a justified downgrade of confidence from 0.62→0.45 based on sound metascientific reasoning (spirit violation of zero-against-evidence rule and magnitude fragility documented in supporting claims 002/003), with consistent F3 evidence and an author confidence of 0.80, though the claim remains somewhat self-referential and the exact numerical downgrade is somewhat subjective."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim proposes a confidence downgrade (0.62→0.45) for a nested meta-research finding based on internal audit evidence showing directional support but magnitude fragility and spirit-of-rules violations; with 2 FOR and 1 AGAINST evidence at F2-F3 fidelity, the author's stated confidence of 0.80 is high, but the claim itself is about whether a downgrade *should* occur (normative/procedural) rather than empirical verification, making it more dependent on audit methodology acceptance than replicable facts."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-006",
+      "claim_text": "2026-04-15/claim-008 (knowledge_persist gap = 0.84) is statistically robust: the gap direction is stable across all robustness tests, supported by a significant Wilcoxon test (p=0.006), and the bootstrap CI is entirely above zero.",
+      "status": "active",
+      "confidence": 0.82,
+      "ground_truth": true,
+      "mean_prediction": 0.652,
+      "consensus": 0.7383,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.42,
+          "brier": 0.3364,
+          "reasoning": "While the claim shows promising direction-robustness (Wilcoxon p=0.006, bootstrap CI above zero, no sign flips in LOO), the magnitude is admittedly noise-sensitive, the permutation test is non-significant (p=0.170), the alternative rubric concern is plausible though unexecuted, and the small sample (n=11) with ordinal scores limits generalizability—making the claim vulnerable to refutation upon independent evaluation of the broader robustness profile."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim is supported by strong directional robustness evidence (significant Wilcoxon p=0.006, zero-crossing-avoiding bootstrap CI, no sign flips across LOO and noise tests), but the against-evidence correctly identifies that magnitude is noise-sensitive and the permutation test (p=0.170) suggests dimension separability concerns, warranting moderate confidence rather than high confidence."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.68,
+          "brier": 0.1024,
+          "reasoning": "The claim is supported by solid F2 evidence (robustness battery with reproducible gap 0.8364, significant Wilcoxon p=0.006, bootstrap CI above zero, 11/11 sign stability) but undermined by F1 evidence highlighting magnitude sensitivity to noise and a non-significant permutation test (p=0.170), combined with the contextual warning that 'absolute magnitude is noise-sensitive'—making the narrower claim about direction robust credible, but the broader robustness claim somewhat overstated."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim is strongly supported by multiple robustness tests (Wilcoxon p=0.006, bootstrap CI above zero, 11/11 LOO iterations positive, noise injection showing <0.2% fail rate), but weakened by the permutation test's non-significance (p=0.170) and the acknowledged noise-sensitivity of the absolute magnitude (mean gap drops to 0.557 under uniform noise), creating a tension between direction-robustness and magnitude-reliability that independent verification would scrutinize carefully."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim has strong directional robustness (Wilcoxon p=0.006, bootstrap CI entirely above zero, 11/11 LOO positive) but acknowledged magnitude sensitivity and a weak permutation test (p=0.170) create meaningful uncertainty; starting from 60% base rate, the significant statistical tests and reproducibility push upward, but the split evidence (1 for, 1 against) and F1-level concerns about alternative scoring prevent higher confidence."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-007",
+      "claim_text": "2026-04-15/claim-009 (phase-asymmetry) is largely fragile: the counter-intuitive domain_breadth reversal (scalability < closed_loop) fails significance (perm p=0.67, Mann-Whitney p=0.44), while the execution_fidelity superiority of the scalability phase has MWU p=0.045 (uncorrected) which is non-significant after Bonferroni correction for 6 dimensions (corrected α ≈ 0.008).",
+      "status": "active",
+      "confidence": 0.78,
+      "ground_truth": true,
+      "mean_prediction": 0.28,
+      "consensus": 0.7392,
+      "is_surprising": true,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.15,
+          "brier": 0.7225,
+          "reasoning": "The claim itself argues that phase-asymmetry is 'largely fragile' with multiple failures to reach significance: domain_breadth shows p=0.67 and p=0.44 (both non-significant), execution_fidelity's p=0.045 is non-significant after Bonferroni correction, the bootstrap CI crosses zero, noise injection reverses direction 28.8% of the time, and only n=3 in one group severely limits power—these are exactly the conditions that make independent verification unlikely to reproduce positive findings."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.25,
+          "brier": 0.5625,
+          "reasoning": "The claim asserts fragility of phase-asymmetry findings, with strong empirical support for domain_breadth non-significance (perm p=0.67, MW p=0.44, CI crossing zero, 28.8% noise reversals) but contradicted by execution_fidelity showing directional robustness (97.7% noise preservation, positive CI) despite failing multiple-testing correction; the mixed evidence, small n=3 closed_loop sample, and reliance on uncorrected statistics create substantial verification uncertainty."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.25,
+          "brier": 0.5625,
+          "reasoning": "The claim asserts fragility of phase-asymmetry findings; while F2 evidence strongly supports statistical non-significance of domain_breadth (p=0.67, CI crossing zero, 28.8% noise reversal rate), the execution_fidelity finding (p=0.045 uncorrected but p=0.061 permutation, fails Bonferroni correction) presents a genuinely borderline result with directional consistency (CI [0.375, 1.000], 97.7% noise robustness), making the overall fragility claim only partially supported and dependent on interpretation of what constitutes 'largely fragile' given unequal evidence quality (F2 vs F1) and severe sample size limitations (n=3)."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.25,
+          "brier": 0.5625,
+          "reasoning": "The claim asserts fragility of phase-asymmetry findings, supported by multiple statistical failures (perm p=0.67, MW p=0.44 for domain_breadth; MW p=0.045 uncorrected becomes non-significant post-Bonferroni), but undermined by severe power limitations (n=3 closed_loop), high noise sensitivity (28.8% reversal rate), and the execution_fidelity result showing directional consistency despite correction issues—making independent verification unlikely given the exploratory nature and multiple testing problems acknowledged in the evidence itself."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.25, \"reasoning\": \"The claim correctly identifies fragility in the phase-asymmetry finding: domain_breadth reversal lacks statistical support (p=0.67, CI crosses zero, 28.8% noise-dri"
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-008",
+      "claim_text": "2026-04-15 run の claim-009 (phase-asymmetry) のうち domain_breadth 反転サブクレーム（scalability フェーズが closed_loop フェーズより domain_breadth が低い）の confidence は 0.60 → ~0.35 へ下方修正されるべきである。execution_fidelity 優位サブクレームについても confidence 0.60 → 0.45 へ下方修正が妥当である（MWU p=0.045 は Bonferroni 補正後 6 次元で非有意; 方向的証拠 CI [0.375, 1.000] は維持されるが統計的有意性は主張できない）。",
+      "status": "active",
+      "confidence": 0.82,
+      "ground_truth": true,
+      "mean_prediction": 0.538,
+      "consensus": 0.61,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.25,
+          "brier": 0.5625,
+          "reasoning": "This claim proposes downgrading confidence levels in a meta-analytic audit based on statistical multiple-comparisons corrections and sample-size imbalances (n=3 vs n=8), but verification requires independent replication of the exact statistical reassessment; the evidence (bootstrap CI crossing zero, permutation p=0.667, MWU p=0.444, 28.8% noise-induced reversals) strongly supports the downgrade rationale, yet the claim's verification hinges on whether independent evaluators accept the same methodological standards and reach identical confidence reduction targets (0.60→0.35 and 0.60→0.45), which is highly contingent on meta-scientific consensus and not empirically falsifiable in conventional terms."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "This meta-claim proposes downgrading confidence in phase-asymmetry subclaims (domain_breadth: 0.60→0.35; execution_fidelity: 0.60→0.45) based on rigorous statistical reanalysis—the evidence comprehensively demonstrates lack of statistical significance (CI spanning zero, permutation p=0.667, MWU p=0.444, 28.8% noise-induced reversals, Bonferroni-corrected non-significance), making the downgrade proposal well-justified despite the author's high stated confidence of 0.82, though the modest evidence base and acknowledged small-sample limitations create residual uncertainty about precise confidence targets."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.72, \"reasoning\": \"The claim proposes methodologically sound confidence downgrades (0.60→0.35 and 0.60→0.45) supported by rigorous statistical reasoning: multiple independent tests (b"
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.68, \"reasoning\": \"The claim proposes downward confidence revisions (0.60→0.35 and 0.60→0.45) based on rigorous statistical reanalysis: bootstrap CIs crossing zero, permutation p=0.66"
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim argues for confidence downgrading (0.60→0.35 for domain_breadth, 0.60→0.45 for execution_fidelity) based on rigorous statistical re-analysis showing non-significance after multiple-comparison correction and small-sample effects; strong evidence (F2: CI crosses zero, p=0.444, 28.8% noise reversal) supports the downgrade rationale, though verification depends on whether independent auditors accept the Bonferroni correction logic and the conclusion that original 0.60 confidence was indeed unjustified given the evidence structure."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-009",
+      "claim_text": "ARA taxonomy 研究において、within-system paired comparisons（各システムを自分自身のコントロールとする）は between-group unpaired comparisons（フェーズ・クラスター間比較）より本質的に高い統計的検出力を持つ。Wilcoxon SR (n=11 paired) の MDE d=0.85 に対し MWU (n=3 vs n=8) の MDE d=2.05 — 2.4× の差（この ratio は設計特性であり SD 仮定に依存しない）。kp_gap の検出力は SD 仮定 ∈ {0.6, 0.8, 1.0} で 78%-99% (assuming SD=0.8: d≈1.05, power=91%)、db_diff の検出力は同範囲で 13%-22% (assuming SD=0.7: d≈0.66, power=19%)。",
+      "status": "active",
+      "confidence": 0.78,
+      "ground_truth": true,
+      "mean_prediction": 0.66,
+      "consensus": 0.7317,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.42,
+          "brier": 0.3364,
+          "reasoning": "While the claim contains simulation-based evidence (F2) and a theoretically sound structural argument about variance elimination in paired designs, the verification faces several critical obstacles: (1) the claim rests heavily on effect size estimates (d≈1.05 for kp_gap, d≈0.66 for db_diff) derived from converting ordinal 0-2 scores with assumed SD values, introducing multiple approximation layers; (2) the small sample sizes (n=11 paired, n=3 vs n=8) limit generalizability and the normal approximation validity for ordinal data; (3) independent replication would require access to comparable ARA taxonomy datasets with similar effect structures, which may not exist; (4) one counterargument correctly notes that paired designs are not always applicable, making the claim's generality questionable; and (5) the 0.78 author confidence and F1-level limitations suggest the authors themselves recognize substantial uncertainty beyond the simulation framework."
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim is well-supported by rigorous simulation-based power analysis (F2 evidence) with stable qualitative conclusions across SD sensitivity analysis, paired design superiority is structurally sound, but the practical applicability is limited by context-specificity (not all pairings are feasible) and reliance on normal approximation for ordinal data—warranting modest discount from the author's 0.78 confidence."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim rests on sound statistical principles (paired designs reduce variance) supported by F2 simulation-based evidence (N=2,000/point with ~2% SE) and robust SD sensitivity analysis showing design-invariant MDE ratios, but verification faces challenges: (1) maximum fidelity is F2 (not F3), (2) ordinal-to-normal approximation introduces model assumptions, (3) context-dependence (pairing not always applicable) limits generalizability, and (4) the F1 counterargument about design appropriateness is valid, though it critiques scope rather than the core statistical claim's validity."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim rests on solid statistical principles (paired designs reduce variance and improve power) supported by simulation-based evidence (F2 fidelity) with robust sensitivity analysis, but faces verification challenges: (1) narrow domain specificity to ARA taxonomy makes generalization difficult, (2) the contextual counterargument (ev-037) that paired designs are not always applicable weakens the 'essential superiority' framing, (3) F2 evidence depends on normal approximation for ordinal data and SD assumptions, and (4) independent replication in different research domains would be needed to confirm the claimed design-invariant MDE ratio of 2.4×."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim rests on strong simulation-based evidence (F2, n=2,000/point) showing consistent MDE ratios and power patterns robust to SD assumptions, with plausible mechanistic reasoning about variance removal in paired designs; however, verification is complicated by the core debate being somewhat circular (paired vs unpaired appropriateness is design-context dependent), by reliance on normal approximation for ordinal data, and by the F1 counterargument noting that paired designs aren't always feasible—so while the statistical mechanics appear sound, the generalizability and applicability claim may face challenges in independent evaluation."
+        }
+      ]
+    },
+    {
+      "claim_id": "2026-04-16 v2/claim-010",
+      "claim_text": "feedback_density × domain_breadth の負の相関（推定 r_true ≈ -0.40）を 80% 検出力で確認または棄却するには、連続データで n ≈ 47、順序 3 点スコアリング (0/1/2) + Spearman 検定で n ≈ 70 の AI 研究自動化システムが必要。現在の n=11 では検出力 17-22%、拡張 n=19 でも 30-42% にとどまり、サンプル不足が r=-0.553 の統計的非有意性の主因である。",
+      "status": "active",
+      "confidence": 0.75,
+      "ground_truth": true,
+      "mean_prediction": 0.668,
+      "consensus": 0.809,
+      "is_surprising": false,
+      "predictions": [
+        {
+          "predictor": "Skeptic",
+          "probability": 0.5,
+          "brier": 0.25,
+          "reasoning": "Parse error. Raw: {\"probability\": 0.42, \"reasoning\": \"The claim makes specific, testable statistical assertions about required sample sizes, but verification is hampered by: (1) the r_true estimate (-0.40) rests on onl"
+        },
+        {
+          "predictor": "Optimist",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim makes a rigorous quantitative assertion about required sample sizes supported by both analytical (Fisher z-transform) and simulation-based power calculations with appropriate methodology; the evidence quality is solid (F2 level), consistency checks align observed results with predicted power curves, and the core calculations appear sound, though verification requires independent replication of the statistical analysis and the key vulnerability is dependence on the r_true ≈ -0.40 point estimate where sensitivity analysis shows substantially different requirements if true effect is weaker."
+        },
+        {
+          "predictor": "Methodologist",
+          "probability": 0.68,
+          "brier": 0.1024,
+          "reasoning": "The claim presents F2-level evidence (simulation-based and analytical power analysis with code/data artifacts) supporting specific sample size requirements, but verification depends on: (1) the true correlation being near -0.40 (acknowledged uncertainty from 3 raters with wide range -0.22 to -0.55), (2) ordinal data assumptions holding as modeled, and (3) external validation of the power calculations; the post-hoc consistency check (ev-040) is circular, and the against-evidence (ev-041) correctly identifies that weaker true effects would substantially alter conclusions, creating meaningful epistemic uncertainty despite methodologically sound analysis."
+        },
+        {
+          "predictor": "DomainExpert",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim's core technical content (power calculations for correlation detection via Fisher z-transform and ordinal simulation) is methodologically sound and well-documented with artifacts, but verification depends on: (1) reproducibility of the specific power values (highly likely given standard methods), (2) acceptance of r_true ≈ -0.40 as appropriate estimate (moderate confidence—3 scorers give wide range -0.22 to -0.55), and (3) practical relevance of the sample size recommendations (dependent on future research decisions); the main uncertainty is whether independent reviewers will find the underlying correlation estimate and discretization assumptions sufficiently robust."
+        },
+        {
+          "predictor": "BaseRate",
+          "probability": 0.72,
+          "brier": 0.0784,
+          "reasoning": "The claim presents rigorous statistical power analysis with dual methods (analytical Fisher z-transform and simulation-based Spearman), internally consistent results validated against observed p-values, and clear limitations acknowledged; however, verification depends on the underlying true effect size (r≈-0.40 is median of only 3 scorers with wide confidence intervals), and the methodological assumptions (latent bivariate normality discretization) may not perfectly reflect true ordinal data distributions, creating moderate uncertainty about whether the specific sample size recommendations will generalize to independent replication studies."
+        }
+      ]
+    }
+  ]
+}
